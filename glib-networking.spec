@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.46.1
-Release  : 2
+Release  : 3
 URL      : http://ftp.gnome.org/pub/gnome/sources/glib-networking/2.46/glib-networking-2.46.1.tar.xz
 Source0  : http://ftp.gnome.org/pub/gnome/sources/glib-networking/2.46/glib-networking-2.46.1.tar.xz
 Summary  : No detailed summary available

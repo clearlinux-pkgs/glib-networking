@@ -1,1 +1,1 @@
--with-ca-certificates=%{_sysconfdir}/ssl/cert.pem 
+-with-ca-certificates=/var/cache/ca-certs/extracted/pem/tls-ca-bundle.pem

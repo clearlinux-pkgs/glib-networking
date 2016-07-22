@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.46.1
-Release  : 3
+Release  : 4
 URL      : http://ftp.gnome.org/pub/gnome/sources/glib-networking/2.46/glib-networking-2.46.1.tar.xz
 Source0  : http://ftp.gnome.org/pub/gnome/sources/glib-networking/2.46/glib-networking-2.46.1.tar.xz
 Summary  : No detailed summary available
@@ -46,7 +46,8 @@ locales components for the glib-networking package.
 %setup -q -n glib-networking-2.46.1
 
 %build
-%configure --disable-static -with-ca-certificates=%{_sysconfdir}/ssl/cert.pem
+export LANG=C
+%configure --disable-static -with-ca-certificates=/var/cache/ca-certs/extracted/pem/tls-ca-bundle.pem
 make V=1  %{?_smp_mflags}
 
 %install

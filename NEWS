@@ -1,7 +1,64 @@
-2.46.1
+2.50.0
+======
+  * New stable release.
+
+  * Updated translations: British English, Polish
+
+2.49.90
+=======
+  * Ported to use upstream gettext rather than intltool/glib-gettext
+    [#768708, Javier Jardón]
+
+  * Updated po files for future gettext versions [Piotr Drąg]
+
+  * Fixed translation lookup on Windows [#765466, Chun-wei Fan]
+
+  * Updated translations: Occitan
+
+2.48.2
+======
+  * gnutls: Fixed an infinite loop if a server sent two identical
+    copies of its CA certificate [#765317, Carlos Garcia Campos]
+
+  * New/updated translations: Occitan, Scottish Gaelic
+
+2.48.1
+======
+  * Fixed translations in non-UTF-8 domains [#765466, Ting-Wei Lan]
+
+  * Fixed bash-ism in configure [#765396, Patrick Welche]
+
+  * Updated translations: Friulian
+
+2.48.0
+======
+  * New stable release. (No changes since 2.47.90)
+
+2.47.90
+=======
+  * gnutls: The non-PKCS#11 TLS plugin now uses gnutls's certificate
+    validation code directly, rather than attempting to build a
+    certificate chain itself first. [#753260 and others, Dan Winship]
+
+  * gnutls: Fixed a leak when closing a connection during an implicit
+    handshake [#736809, Philip Withnall]
+
+  * gnutls: Fixed "make check" without PKCS#11 support [#728977,
+    Gilles Dartiguelongue]
+
+  * gnutls: Various changes in preparation for DTLS support (but not
+    the actual DTLS support itself) [#697908, #735754, Philip
+    Withnall, Olivier Crête]
+
+  * Updated translations: Occitan
+
+2.47.1
 ======
   * Fixed a certificate chain validation problem that affected
     Facebook in Epiphany. [#750457, Carlos Garcia Campos]
+
+  * Added a systemd service file for glib-pacrunner [#755740, Simon
+    McVittie]
 
 2.46.0
 ======

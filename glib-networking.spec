@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.50.0
-Release  : 6
+Release  : 7
 URL      : http://ftp.gnome.org/pub/gnome/sources/glib-networking/2.50/glib-networking-2.50.0.tar.xz
 Source0  : http://ftp.gnome.org/pub/gnome/sources/glib-networking/2.50/glib-networking-2.50.0.tar.xz
 Summary  : No detailed summary available

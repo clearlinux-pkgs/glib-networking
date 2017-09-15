@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.54.0
-Release  : 8
+Release  : 9
 URL      : https://download.gnome.org/sources/glib-networking/2.54/glib-networking-2.54.0.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.54/glib-networking-2.54.0.tar.xz
 Summary  : No detailed summary available
@@ -12,7 +12,6 @@ Group    : Development/Tools
 License  : LGPL-2.0
 Requires: glib-networking-lib
 Requires: glib-networking-locales
-BuildRequires : ca-certs
 BuildRequires : gcc-dev32
 BuildRequires : gcc-libgcc32
 BuildRequires : gcc-libstdc++32
@@ -69,8 +68,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1505238040
-%configure --disable-static -with-ca-certificates=/var/cache/ca-certs/extracted/pem/tls-ca-bundle.pem
+export SOURCE_DATE_EPOCH=1505459156
+%configure --disable-static --without-ca-certificates
 make V=1  %{?_smp_mflags}
 
 pushd ../build32/
@@ -78,11 +77,11 @@ export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
-%configure --disable-static -with-ca-certificates=/var/cache/ca-certs/extracted/pem/tls-ca-bundle.pem   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+%configure --disable-static --without-ca-certificates   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make V=1  %{?_smp_mflags}
 popd
 %install
-export SOURCE_DATE_EPOCH=1505238040
+export SOURCE_DATE_EPOCH=1505459156
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

@@ -1,1 +1,1 @@
--with-ca-certificates=/var/cache/ca-certs/extracted/pem/tls-ca-bundle.pem
+--without-ca-certificates

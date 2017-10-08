@@ -4,13 +4,16 @@
 #
 Name     : glib-networking
 Version  : 2.54.0
-Release  : 9
+Release  : 10
 URL      : https://download.gnome.org/sources/glib-networking/2.54/glib-networking-2.54.0.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.54/glib-networking-2.54.0.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.0
+Requires: glib-networking-config
 Requires: glib-networking-lib
+Requires: glib-networking-bin
+Requires: glib-networking-data
 Requires: glib-networking-locales
 BuildRequires : gcc-dev32
 BuildRequires : gcc-libgcc32
@@ -26,6 +29,7 @@ BuildRequires : pkgconfig(gio-2.0)
 BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(gnutls)
 BuildRequires : pkgconfig(gsettings-desktop-schemas)
+BuildRequires : pkgconfig(libproxy-1.0)
 BuildRequires : pkgconfig(p11-kit-1)
 
 %description
@@ -33,9 +37,36 @@ Network-related giomodules for glib.
 File bugs against
 http://bugzilla.gnome.org/enter_bug.cgi?product=glib&component=network
 
+%package bin
+Summary: bin components for the glib-networking package.
+Group: Binaries
+Requires: glib-networking-data
+Requires: glib-networking-config
+
+%description bin
+bin components for the glib-networking package.
+
+
+%package config
+Summary: config components for the glib-networking package.
+Group: Default
+
+%description config
+config components for the glib-networking package.
+
+
+%package data
+Summary: data components for the glib-networking package.
+Group: Data
+
+%description data
+data components for the glib-networking package.
+
+
 %package lib
 Summary: lib components for the glib-networking package.
 Group: Libraries
+Requires: glib-networking-data
 
 %description lib
 lib components for the glib-networking package.
@@ -44,6 +75,7 @@ lib components for the glib-networking package.
 %package lib32
 Summary: lib32 components for the glib-networking package.
 Group: Default
+Requires: glib-networking-data
 
 %description lib32
 lib32 components for the glib-networking package.
@@ -68,7 +100,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1505459156
+export SOURCE_DATE_EPOCH=1507490769
 %configure --disable-static --without-ca-certificates
 make V=1  %{?_smp_mflags}
 
@@ -77,11 +109,11 @@ export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
-%configure --disable-static --without-ca-certificates   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+%configure --disable-static --without-ca-certificates --without-libproxy  --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make V=1  %{?_smp_mflags}
 popd
 %install
-export SOURCE_DATE_EPOCH=1505459156
+export SOURCE_DATE_EPOCH=1507490769
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -98,10 +130,23 @@ popd
 %files
 %defattr(-,root,root,-)
 
+%files bin
+%defattr(-,root,root,-)
+/usr/libexec/glib-pacrunner
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/systemd/user/glib-pacrunner.service
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/dbus-1/services/org.gtk.GLib.PACRunner.service
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/gio/modules/libgiognomeproxy.so
 /usr/lib64/gio/modules/libgiognutls.so
+/usr/lib64/gio/modules/libgiolibproxy.so
 
 %files lib32
 %defattr(-,root,root,-)

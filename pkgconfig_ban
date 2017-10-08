@@ -1,5 +1,4 @@
 # This file contains pkgconfig build requirements that get picked up
 # but are undesirable. One entry per line, no whitespace.
-libproxy-1.0
 32gsettings-desktop-schemas
 32libproxy-1.0

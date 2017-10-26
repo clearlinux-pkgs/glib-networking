@@ -1,1 +1,2 @@
 --without-ca-certificates
+--with-pkcs11

@@ -1,0 +1,39 @@
+From c6273ddc61003ec8c7ae339bee20c8e814c1f2ae Mon Sep 17 00:00:00 2001
+From: Arzhan Kinzhalin <arzhan.i.kinzhalin@intel.com>
+Date: Thu, 26 Oct 2017 19:21:58 +0000
+Subject: [PATCH] Prefer PKCS#11 backend.
+
+Reverse the priorities to ensure "gnutls-pkcs11" is the preferred
+backend by glib-networking. This eliminates the need to set
+GIO_USE_TLS=gnutls-pkcs11 in the environment to make glib-networking use
+p11-kit trust store.
+---
+ tls/gnutls/gtlsbackend-gnutls-pkcs11.c | 2 +-
+ tls/gnutls/gtlsbackend-gnutls.c        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tls/gnutls/gtlsbackend-gnutls-pkcs11.c b/tls/gnutls/gtlsbackend-gnutls-pkcs11.c
+index 680ab08..4426654 100644
+--- a/tls/gnutls/gtlsbackend-gnutls-pkcs11.c
++++ b/tls/gnutls/gtlsbackend-gnutls-pkcs11.c
+@@ -64,5 +64,5 @@ g_tls_backend_gnutls_pkcs11_register (GIOModule *module)
+   g_io_extension_point_implement (G_TLS_BACKEND_EXTENSION_POINT_NAME,
+ 				  g_tls_backend_gnutls_pkcs11_get_type(),
+ 				  "gnutls-pkcs11",
+-				  -5);
++				  0);
+ }
+diff --git a/tls/gnutls/gtlsbackend-gnutls.c b/tls/gnutls/gtlsbackend-gnutls.c
+index 332ca05..0a63ca9 100644
+--- a/tls/gnutls/gtlsbackend-gnutls.c
++++ b/tls/gnutls/gtlsbackend-gnutls.c
+@@ -313,5 +313,5 @@ g_tls_backend_gnutls_register (GIOModule *module)
+   g_io_extension_point_implement (G_TLS_BACKEND_EXTENSION_POINT_NAME,
+ 				  g_tls_backend_gnutls_get_type(),
+ 				  "gnutls",
+-				  0);
++				  -5);
+ }
+-- 
+2.14.3
+

@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.54.0
-Release  : 11
+Release  : 12
 URL      : https://download.gnome.org/sources/glib-networking/2.54/glib-networking-2.54.0.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.54/glib-networking-2.54.0.tar.xz
 Summary  : No detailed summary available
@@ -31,6 +31,7 @@ BuildRequires : pkgconfig(gnutls)
 BuildRequires : pkgconfig(gsettings-desktop-schemas)
 BuildRequires : pkgconfig(libproxy-1.0)
 BuildRequires : pkgconfig(p11-kit-1)
+Patch1: 0001-Prefer-PKCS-11-backend.patch
 
 %description
 Network-related giomodules for glib.
@@ -91,6 +92,7 @@ locales components for the glib-networking package.
 
 %prep
 %setup -q -n glib-networking-2.54.0
+%patch1 -p1
 pushd ..
 cp -a glib-networking-2.54.0 build32
 popd
@@ -100,7 +102,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1509042353
+export SOURCE_DATE_EPOCH=1509046268
 %configure --disable-static --without-ca-certificates \
 --with-pkcs11
 make V=1  %{?_smp_mflags}
@@ -115,7 +117,7 @@ export LDFLAGS="$LDFLAGS -m32"
 make V=1  %{?_smp_mflags}
 popd
 %install
-export SOURCE_DATE_EPOCH=1509042353
+export SOURCE_DATE_EPOCH=1509046268
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32

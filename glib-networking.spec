@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.54.1
-Release  : 16
+Release  : 17
 URL      : https://download.gnome.org/sources/glib-networking/2.54/glib-networking-2.54.1.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.54/glib-networking-2.54.1.tar.xz
 Summary  : No detailed summary available

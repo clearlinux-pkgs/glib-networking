@@ -1,1 +1,1 @@
---without-libproxy
+-Dlibproxy=disabled -Dopenssl=disabled

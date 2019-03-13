@@ -1,2 +1,1 @@
---without-ca-certificates
---with-pkcs11
+-Dlibproxy=enabled -Dgnutls=enabled

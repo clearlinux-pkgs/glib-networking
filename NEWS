@@ -1,10 +1,169 @@
-2.54.1
-======
+2.60.0.1 - March 12, 2019
+=========================
 
-  * gnutls: Fix using different client certs for different connections
-    [#781578, Martin Pitt]
+- Fix build with OpenSSL pkg-config unavailable (Nirbheek Chauhan)
 
-  * Updated translations: Catalan (Valencian), Greek, Persian
+2.60.0 - March 11, 2019
+=======================
+
+This is the first stable release featuring the new OpenSSL backend. Please be
+advised that this new backend is still experimental and known to not work on
+some systems, including Debian. Linux distributions are encouraged to stick to
+the default build options, where OpenSSL is not yet enabled.
+
+- Fix build with GnuTLS disabled (Nirbheek Chauhan)
+- Fix build on Windows (Chun-Wei Fan)
+
+2.59.92 - March 4, 2019
+=======================
+
+- Many OpenSSL backend fixes for Windows (Nirbheek Chauhan)
+- GnuTLS: reject sync operations during handshake to avoid deadlocks (#46)
+- Temporarily disable DTLS and OpenSSL tests due to #49 and #54
+
+2.59.91 - February 18, 2019
+===========================
+
+- Update OpenSSL SSL struct when certificate is changed (#55, Fredrik Ternerot)
+- Fix tests build when GnuTLS is disabled (#59)
+- Remove Fedora-specific PROFILE=SYSTEM default cipher list (#61)
+- Fix some problems with the connection tests (Fredrik Ternerot)
+
+2.59.90 - February 4, 2019
+==========================
+
+This release adds an OpenSSL backend, obsoleting the glib-openssl project.
+Credit to all the contributors to the glib-openssl project, especially
+Ignacio Casal Quinteiro. Also thanks to Xavier Claessens for helping with the
+transition.
+
+The OpenSSL backend seems to be mature, though it is less well-tested for
+desktop usage than the GnuTLS backend. It will remain disabled by default at
+build time due to the GPL-incompatible nature of the OpenSSL license -- and the
+GPLv2-incompatible nature of the Apache license that will be used by future
+versions of OpenSSL -- and because the GnuTLS backend is sufficient for Linux
+distros.
+
+Use the OpenSSL backend if you are building an embedded system where
+(GPLv2+ or LGPLv3+) dependencies are unacceptable (e.g. nettle or GMP, both
+dependencies of GnuTLS) and you are OK with the GPL-incompatible OpenSSL
+license. If the OpenSSL backend is enabled at build time, you should probably
+disable build of the GnuTLS backend, or it will take precedence over the OpenSSL
+backend at runtime. For example, you could configure with:
+
+$ mkdir build && cd build
+$ meson -Dgnutls=disabled -Dopenssl=enabled ..
+
+2.59.2 - January 7, 2019
+========================
+
+ - Add support for application layer protocol negotiation (#47, Scott Hutton)
+
+2.59.1 - November 11, 2018
+==========================
+
+This release removes the gnutls-pkcs11 backend, which was disabled in 2.57.2,
+due to lack of any feedback whatsoever regarding its disablement. If you think
+it is still useful to you, given that the normal gnutls backend now supports
+PKCS#11, speak up now.
+
+This release also includes several changes to properly support TLS 1.3.
+
+Other changes:
+
+ - Perform certificate verification during, not after, TLS handshake
+ - Dramatically improve the reliability of the non-DTLS tests. (DTLS is still having problems.)
+ - Regenerate test certificates to prepare for OpenSSL support
+ - Several meson build system improvements to prepare for OpenSSL support
+
+2.58.0 - September 2, 2018
+==========================
+
+ - Updated translations
+
+2.57.92 - August 27, 2018
+=========================
+
+ - Revert fixes for #4 and #6 due to regression (#43)
+ - Fix installed tests (Sébastien Bacher, !7)
+
+2.57.90 - August 12, 2018
+=========================
+
+ - Properly check for server errors in connection tests (#4)
+ - Perform certificate verification during, not after, TLS handshake (#6)
+ - Avoid trailing dots in SNI hostnames (#11)
+ - Send fallback SCSV with fallback connection attempts
+ - Fail unsafe rehandshake attempts initiated by API request
+
+2.57.3 - July 16, 2018
+======================
+
+- Fix memory leaks when calling g_tls_connection_gnutls_get_certificate()
+- Use .so for modules on macOS instead of dylib (Nirbheek Chauhan)
+- Fix build with MSVCC (Nirbheek Chauhan)
+
+2.57.2 - May 21, 2018
+=====================
+
+This release disables build of the gnutls-pkcs11 backend by default. Please
+direct any complaints to https://gitlab.gnome.org/GNOME/glib-networking/issues/7
+
+- Several meson build system improvements
+  (#794978, #795043, and #795982, Xavier Claessens and Nirbheek Chauhan)
+
+2.57.1 - April 16, 2018
+=======================
+
+- Use GnuTLS system trust and remove build option to specify cert bundle (#753260)
+- Fix criticals when child streams outlast the parent GTlsConnection (#792219)
+- Fix crash when setting client cert without private key (#793712)
+- Update tests for compatibility with GnuTLS 3.6.2 (#794286)
+- Never install GIO modules outside build prefix (#794358)
+- Don't install test files if installed tests are disabled (#794372)
+- Fix build with -Dpkcs11=false (#794292, Tom Schoonjans)
+- Allow building as meson subproject (#794709, Mathieu Duponchelle)
+
+- g_tls_certificate_verify() no longer manually verifies certificate
+  activation/expiration time, matching the current behavior of
+  g_tls_database_verify_chain().
+
+2.56.0 - March 20, 2018
+=======================
+
+- Updated translations
+
+2.55.90 - February 12, 2018
+===========================
+
+- Fix unit tests when SSLv3 is unavailable (#782853)
+- Allow static linking (#791100, Xavier Claessens)
+- Fix issues found by coverity (#792402, Philip Withnall)
+- Remove TLS build option; it is now mandatory
+- Try to ensure that GnuTLS is only initialized if TLS is actually used
+- Update use of GObject to follow current best practices
+- Use XDG_CURRENT_DESKTOP to determine which proxy module to load
+
+2.55.2 - December 13, 2017
+==========================
+
+ * Fix glib-pacrunner.service installation directory
+   [#790367, Michael Catanzaro]
+
+ * Updated translations: Hebrew, Indonesian, Spanish
+
+2.55.1 - November 13, 2017
+==========================
+
+ * Implement DTLS support [#697908, Philip Withnall and Olivier Crête]
+
+ * Fix using different client certs for different connections
+   [#781578, Martin Pitt]
+
+ * Port to Meson build system [#786639, Iñigo Martínez]
+
+ * Updated translations: Catalan (Valencian), Croatian, Czech, German,
+   Greek, Norwegian bokmål, Persian, Slovenian
 
 2.54.0
 ======

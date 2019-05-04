@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.60.2
-Release  : 20
+Release  : 21
 URL      : https://download.gnome.org/sources/glib-networking/2.60/glib-networking-2.60.2.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.60/glib-networking-2.60.2.tar.xz
 Summary  : Network extensions for GLib
@@ -25,6 +25,7 @@ BuildRequires : glibc-dev32
 BuildRequires : glibc-libc32
 BuildRequires : gnutls-dev
 BuildRequires : gnutls-dev32
+BuildRequires : gsettings-desktop-schemas
 BuildRequires : openssl-dev
 BuildRequires : openssl-dev32
 BuildRequires : pacrunner-dev
@@ -112,7 +113,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1556903930
+export SOURCE_DATE_EPOCH=1557000482
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --prefix /usr --buildtype=plain -Dlibproxy=enabled -Dgnutls=enabled  builddir
 ninja -v -C builddir
 pushd ../build32

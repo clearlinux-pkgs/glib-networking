@@ -1,3 +1,39 @@
+2.62.0 - September 7, 2019
+==========================
+
+- Revert broken queued data fix for #15
+
+2.61.92 - September 2, 2019
+===========================
+
+- Discard queued data after interrupted writes (#15)
+- Verify socket timeouts are respected (#18)
+- Fix a couple broken error messages
+
+2.61.90 - August 5, 2019
+========================
+
+- Fix translations of certain error messages
+
+2.61.2 - July 22, 2019
+======================
+
+- Improve certain handshake error messages (#13)
+- Fix regressions introduced in 2.61.1 (#91, #92)
+
+2.61.1 - June 9, 2019
+=====================
+
+This release contains a major refactoring of the TLS codebase. The GnuTLS
+backend now shares the same base classes as the OpenSSL backend, to avoid
+duplicating as much code as possible. The base classes, previously used only by
+the OpenSSL backend and originally forked from glib-networking several years
+ago, have been enhanced to achieve feature-parity with the current state of the
+GnuTLS backend.
+
+Please note that the OpenSSL backend remains experimental. Further planned work
+is required before this backend will be production-ready.
+
 2.60.3 - June 9, 2019
 =====================
 

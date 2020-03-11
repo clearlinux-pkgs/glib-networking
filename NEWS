@@ -1,14 +1,61 @@
-2.62.3 - January 3, 2019
+2.64.0 - March 6, 2020
+======================
+
+- Fix OpenSSL backend on RHEL 6 (!116)
+
+2.63.92 - February 27, 2020
+===========================
+
+- Revert fix for #127, which broke libsoup (#129)
+
+2.63.91 - February 14, 2020
+===========================
+
+- Fix peer-certificate properties changing too soon (#127)
+- GnuTLS backend: reduce session resumption cache lifetime (!113)
+- GnuTLS backend: restore TLS 1.2 support for copy session state (!114)
+
+2.63.90 - February 1, 2020
+==========================
+
+- Remove PKCS#11 support, deferred until next cycle (#104)
+- Remove OpenSSL backend's OCSP support (#124)
+
+2.63.3 - January 3, 2019
 ========================
 
+- Fix OpenSSL backend regressions and reenable OpenSSL testsuite (#54)
+- Temporarily disable cancellation of sync handshakes (#97)
+- Disable flaky test (#104) and resolve testsuite flakiness (#105)
 - Fix leak of base iostream (or base datagram socket), 2.62 regression
 - Fix duplicate notifies of peer-certificate and peer-certificate-errors
+- Fix regression where GnuTLS connection init could theoretically fail without error
 - Fix obscure corner case where SNI might not work
+- Fix various build warnings on Windows
+- Fix multiple build failures on Windows (Chun-wei Fan)
+- Fix installed tests (Iain Lane)
 
-2.62.2 - December 9, 2019
+2.63.2 - November 22, 2019
+==========================
+
+- Fix crash when handshake context is reset too late (#97)
+- Require GnuTLS 3.6.5 (#100)
+- Build mock PKCS #11 module only for GnuTLS backend (#101)
+- Rework session resumption support for TLS 1.3 (!69)
+- Run GnuTLS tests under TLS 1.2 in addition to TLS 1.3 (!69)
+- Support OpenSSL 1.0.1 (!81)
+- Drop rehandshake mode and protocol version fallback support (!83)
+- Add logging functions (!89, MARTINSONS Frederic)
+- Fix PKCS #11 tests with TLS 1.2 (!91, Patrick Griffis)
+- Add more debug logging for PKCS #11 (!92, Patrick Griffis)
+- Fix leak in GTlsCertificateGnutls finalizer (!93, Patrick Griffis)
+
+2.63.1 - October 11, 2019
 =========================
 
-- Fix handshake_context crashes (#97)
+- Add support for new PKCS#11 APIs to facilitate use with smartcards (Patrick Griffis)
+- Disable TLS 1.0 and TLS 1.1 when using GnuTLS
+- Fix threadsafety issue (#95)
 
 2.62.1 - October 4, 2019
 ========================

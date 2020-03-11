@@ -1,6 +1,3 @@
-2.62.3
-gnutls-dev
-gsettings-desktop-schemas
-openssl-dev
+2.64.0
 pacrunner-dev
 pkgconfig(libproxy-1.0)

@@ -1,1 +1,1 @@
--Dlibproxy=enabled -Dgnutls=enabled
+-Dlibproxy=enabled -Dgnutls=enabled -Dinstalled_tests=true

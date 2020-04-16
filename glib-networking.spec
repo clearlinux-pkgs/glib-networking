@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.64.2
-Release  : 29
+Release  : 30
 URL      : https://download.gnome.org/sources/glib-networking/2.64/glib-networking-2.64.2.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.64/glib-networking-2.64.2.tar.xz
 Summary  : No detailed summary available
@@ -101,6 +101,15 @@ Group: Systemd services
 services components for the glib-networking package.
 
 
+%package tests
+Summary: tests components for the glib-networking package.
+Group: Default
+Requires: glib-networking = %{version}-%{release}
+
+%description tests
+tests components for the glib-networking package.
+
+
 %prep
 %setup -q -n glib-networking-2.64.2
 cd %{_builddir}/glib-networking-2.64.2
@@ -113,7 +122,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1586897495
+export SOURCE_DATE_EPOCH=1587040905
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -122,7 +131,7 @@ export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
-CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dlibproxy=enabled -Dgnutls=enabled  builddir
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dlibproxy=enabled -Dgnutls=enabled -Dinstalled_tests=true  builddir
 ninja -v -C builddir
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
@@ -130,7 +139,7 @@ export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
 export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
-meson --libdir=lib32 --prefix=/usr --buildtype=plain -Dlibproxy=enabled -Dgnutls=enabled -Dlibproxy=disabled -Dopenssl=disabled builddir
+meson --libdir=lib32 --prefix=/usr --buildtype=plain -Dlibproxy=enabled -Dgnutls=enabled -Dinstalled_tests=false -Dlibproxy=disabled -Dopenssl=disabled builddir
 ninja -v -C builddir
 popd
 
@@ -178,6 +187,59 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files services
 %defattr(-,root,root,-)
 /usr/lib/systemd/user/glib-pacrunner.service
+
+%files tests
+%defattr(-,root,root,-)
+/usr/libexec/installed-tests/glib-networking/certificate-gnutls
+/usr/libexec/installed-tests/glib-networking/connection-gnutls
+/usr/libexec/installed-tests/glib-networking/file-database-gnutls
+/usr/libexec/installed-tests/glib-networking/files/ca-alternative.pem
+/usr/libexec/installed-tests/glib-networking/files/ca-key.pem
+/usr/libexec/installed-tests/glib-networking/files/ca-roots-bad.pem
+/usr/libexec/installed-tests/glib-networking/files/ca-roots.pem
+/usr/libexec/installed-tests/glib-networking/files/ca-verisign-sha1.pem
+/usr/libexec/installed-tests/glib-networking/files/ca.pem
+/usr/libexec/installed-tests/glib-networking/files/chain-with-verisign-md2.pem
+/usr/libexec/installed-tests/glib-networking/files/chain.pem
+/usr/libexec/installed-tests/glib-networking/files/client-and-key.pem
+/usr/libexec/installed-tests/glib-networking/files/client-future.pem
+/usr/libexec/installed-tests/glib-networking/files/client-key.pem
+/usr/libexec/installed-tests/glib-networking/files/client-past.pem
+/usr/libexec/installed-tests/glib-networking/files/client.pem
+/usr/libexec/installed-tests/glib-networking/files/client2-and-key.pem
+/usr/libexec/installed-tests/glib-networking/files/client2-key.pem
+/usr/libexec/installed-tests/glib-networking/files/client2.pem
+/usr/libexec/installed-tests/glib-networking/files/create-files.sh
+/usr/libexec/installed-tests/glib-networking/files/garbage.pem
+/usr/libexec/installed-tests/glib-networking/files/intermediate-ca-csr.pem
+/usr/libexec/installed-tests/glib-networking/files/intermediate-ca-key.pem
+/usr/libexec/installed-tests/glib-networking/files/intermediate-ca.pem
+/usr/libexec/installed-tests/glib-networking/files/non-ca.pem
+/usr/libexec/installed-tests/glib-networking/files/old-ca-key.pem
+/usr/libexec/installed-tests/glib-networking/files/old-ca.pem
+/usr/libexec/installed-tests/glib-networking/files/root-ca-csr.pem
+/usr/libexec/installed-tests/glib-networking/files/server-and-key.pem
+/usr/libexec/installed-tests/glib-networking/files/server-intermediate-csr.pem
+/usr/libexec/installed-tests/glib-networking/files/server-intermediate-key.pem
+/usr/libexec/installed-tests/glib-networking/files/server-intermediate.pem
+/usr/libexec/installed-tests/glib-networking/files/server-key.der
+/usr/libexec/installed-tests/glib-networking/files/server-key.pem
+/usr/libexec/installed-tests/glib-networking/files/server-self.pem
+/usr/libexec/installed-tests/glib-networking/files/server.der
+/usr/libexec/installed-tests/glib-networking/files/server.pem
+/usr/libexec/installed-tests/glib-networking/files/ssl/ca.conf
+/usr/libexec/installed-tests/glib-networking/files/ssl/client.conf
+/usr/libexec/installed-tests/glib-networking/files/ssl/intermediate-ca.conf
+/usr/libexec/installed-tests/glib-networking/files/ssl/old-ca.conf
+/usr/libexec/installed-tests/glib-networking/files/ssl/server-intermediate.conf
+/usr/libexec/installed-tests/glib-networking/files/ssl/server.conf
+/usr/libexec/installed-tests/glib-networking/gnome
+/usr/libexec/installed-tests/glib-networking/libproxy
+/usr/share/installed-tests/glib-networking/certificate-gnutls.test
+/usr/share/installed-tests/glib-networking/connection-gnutls.test
+/usr/share/installed-tests/glib-networking/file-database-gnutls.test
+/usr/share/installed-tests/glib-networking/gnome.test
+/usr/share/installed-tests/glib-networking/libproxy.test
 
 %files locales -f glib-networking.lang
 %defattr(-,root,root,-)

@@ -1,1 +1,1 @@
--Dlibproxy=disabled -Dopenssl=disabled
+-Dlibproxy=disabled -Dopenssl=disabled -Dinstalled_tests=false

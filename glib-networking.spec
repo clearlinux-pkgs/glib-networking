@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.64.2
-Release  : 30
+Release  : 31
 URL      : https://download.gnome.org/sources/glib-networking/2.64/glib-networking-2.64.2.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.64/glib-networking-2.64.2.tar.xz
 Summary  : No detailed summary available
@@ -25,6 +25,7 @@ BuildRequires : glibc-dev32
 BuildRequires : glibc-libc32
 BuildRequires : gnutls-dev
 BuildRequires : gnutls-dev32
+BuildRequires : gsettings-desktop-schemas
 BuildRequires : openssl-dev
 BuildRequires : openssl-dev32
 BuildRequires : pacrunner-dev
@@ -105,6 +106,7 @@ services components for the glib-networking package.
 Summary: tests components for the glib-networking package.
 Group: Default
 Requires: glib-networking = %{version}-%{release}
+Requires: gsettings-desktop-schemas
 
 %description tests
 tests components for the glib-networking package.
@@ -122,7 +124,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1587040905
+export SOURCE_DATE_EPOCH=1588163502
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -139,7 +141,7 @@ export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
 export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
-meson --libdir=lib32 --prefix=/usr --buildtype=plain -Dlibproxy=enabled -Dgnutls=enabled -Dinstalled_tests=false -Dlibproxy=disabled -Dopenssl=disabled builddir
+meson --libdir=lib32 --prefix=/usr --buildtype=plain -Dlibproxy=enabled -Dgnutls=enabled -Dinstalled_tests=true -Dlibproxy=disabled -Dopenssl=disabled -Dinstalled_tests=false builddir
 ninja -v -C builddir
 popd
 

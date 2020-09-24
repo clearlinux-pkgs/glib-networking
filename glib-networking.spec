@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.66.0
-Release  : 32
+Release  : 33
 URL      : https://download.gnome.org/sources/glib-networking/2.66/glib-networking-2.66.0.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.66/glib-networking-2.66.0.tar.xz
 Summary  : No detailed summary available

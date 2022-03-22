@@ -1,6 +1,5 @@
 # This file contains recursive sources that require this package
 compat-libsoup-soname-24
-flatpak
 gimp
 libsoup
 spice

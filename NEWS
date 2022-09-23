@@ -1,7 +1,32 @@
-2.72.2 - August 5, 2022
-=======================
+2.74.0 - September 15, 2022
+===========================
+
+- Updated translations
+
+2.74.rc - September 1, 2022
+===========================
+
+ - Support PKCS #12 encrypted certificates (!184, Patrick Griffis)
+ - Various improvements to Meson build system (!214, Xavier Claessens)
+ - Multiple fixes for proxy tests (!222)
+
+2.74.beta - August 5, 2022
+==========================
 
  - Drop environment proxy resolver to lowest priority (#190)
+ - Expose implementation of G_TLS_CHANNEL_BINDING_EXPORTER (#191)
+ - Add build option for environment proxy resolver (!217)
+
+2.74.alpha - July 7, 2022
+=========================
+
+ - Add build option for toggling debug logging (#188)
+ - Move gettext() usage out of hot paths (#188)
+ - Fix tests build when using openssl (!211, Nirbheek Chauhan)
+ - Properly free libproxy lookup results and require libproxy 0.4.16 (!212)
+ - Add additional validation for proxy lookup results (!212)
+ - Allow using static libraries via meson subprojects (!213, Olivier Crête)
+ - Updated translations
 
 2.72.1 - June 29, 2022
 ======================

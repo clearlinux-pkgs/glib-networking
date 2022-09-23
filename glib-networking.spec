@@ -4,7 +4,7 @@
 #
 Name     : glib-networking
 Version  : 2.74.0
-Release  : 45
+Release  : 46
 URL      : https://download.gnome.org/sources/glib-networking/2.74/glib-networking-2.74.0.tar.xz
 Source0  : https://download.gnome.org/sources/glib-networking/2.74/glib-networking-2.74.0.tar.xz
 Summary  : No detailed summary available

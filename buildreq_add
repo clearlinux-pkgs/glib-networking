@@ -4,3 +4,4 @@ gnutls-dev32
 gnutls-dev
 openssl-dev
 openssl-dev32
+libproxy-dev

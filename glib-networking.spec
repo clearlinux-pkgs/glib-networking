@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : glib-networking
-Version  : 2.76.0
-Release  : 50
-URL      : https://download.gnome.org/sources/glib-networking/2.76/glib-networking-2.76.0.tar.xz
-Source0  : https://download.gnome.org/sources/glib-networking/2.76/glib-networking-2.76.0.tar.xz
+Version  : 2.76.1
+Release  : 51
+URL      : https://download.gnome.org/sources/glib-networking/2.76/glib-networking-2.76.1.tar.xz
+Source0  : https://download.gnome.org/sources/glib-networking/2.76/glib-networking-2.76.1.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -99,6 +99,7 @@ locales components for the glib-networking package.
 %package services
 Summary: services components for the glib-networking package.
 Group: Systemd services
+Requires: systemd
 
 %description services
 services components for the glib-networking package.
@@ -115,10 +116,13 @@ tests components for the glib-networking package.
 
 
 %prep
-%setup -q -n glib-networking-2.76.0
-cd %{_builddir}/glib-networking-2.76.0
+%setup -q -n glib-networking-2.76.1
+cd %{_builddir}/glib-networking-2.76.1
 pushd ..
-cp -a glib-networking-2.76.0 build32
+cp -a glib-networking-2.76.1 build32
+popd
+pushd ..
+cp -a glib-networking-2.76.1 buildavx2
 popd
 
 %build
@@ -126,19 +130,23 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680025438
+export SOURCE_DATE_EPOCH=1688408439
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dlibproxy=enabled \
 -Dgnutls=enabled \
 -Dinstalled_tests=true  builddir
 ninja -v -C builddir
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dlibproxy=enabled \
+-Dgnutls=enabled \
+-Dinstalled_tests=true  builddiravx2
+ninja -v -C builddiravx2
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
 export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
@@ -171,8 +179,10 @@ for i in *.pc ; do ln -s $i 32$i ; done
 popd
 fi
 popd
+DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang glib-networking
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -183,6 +193,9 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files lib
 %defattr(-,root,root,-)
+/V3/usr/lib64/gio/modules/libgiognomeproxy.so
+/V3/usr/lib64/gio/modules/libgiognutls.so
+/V3/usr/lib64/gio/modules/libgiolibproxy.so
 /usr/lib64/gio/modules/libgiognomeproxy.so
 /usr/lib64/gio/modules/libgiognutls.so
 /usr/lib64/gio/modules/libgiolibproxy.so
@@ -194,6 +207,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files libexec
 %defattr(-,root,root,-)
+/V3/usr/libexec/glib-pacrunner
 /usr/libexec/glib-pacrunner
 
 %files license
@@ -206,6 +220,12 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files tests
 %defattr(-,root,root,-)
+/V3/usr/libexec/installed-tests/glib-networking/certificate-gnutls
+/V3/usr/libexec/installed-tests/glib-networking/connection-gnutls
+/V3/usr/libexec/installed-tests/glib-networking/environment-libproxy
+/V3/usr/libexec/installed-tests/glib-networking/file-database-gnutls
+/V3/usr/libexec/installed-tests/glib-networking/gnome
+/V3/usr/libexec/installed-tests/glib-networking/mock-pkcs11.so
 /usr/libexec/installed-tests/glib-networking/certificate-gnutls
 /usr/libexec/installed-tests/glib-networking/connection-gnutls
 /usr/libexec/installed-tests/glib-networking/environment-libproxy

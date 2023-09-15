@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : glib-networking
-Version  : 2.76.1
-Release  : 51
-URL      : https://download.gnome.org/sources/glib-networking/2.76/glib-networking-2.76.1.tar.xz
-Source0  : https://download.gnome.org/sources/glib-networking/2.76/glib-networking-2.76.1.tar.xz
+Version  : 2.78.0
+Release  : 52
+URL      : https://download.gnome.org/sources/glib-networking/2.78/glib-networking-2.78.0.tar.xz
+Source0  : https://download.gnome.org/sources/glib-networking/2.78/glib-networking-2.78.0.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -116,13 +116,13 @@ tests components for the glib-networking package.
 
 
 %prep
-%setup -q -n glib-networking-2.76.1
-cd %{_builddir}/glib-networking-2.76.1
+%setup -q -n glib-networking-2.78.0
+cd %{_builddir}/glib-networking-2.78.0
 pushd ..
-cp -a glib-networking-2.76.1 build32
+cp -a glib-networking-2.78.0 build32
 popd
 pushd ..
-cp -a glib-networking-2.76.1 buildavx2
+cp -a glib-networking-2.78.0 buildavx2
 popd
 
 %build
@@ -130,7 +130,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1688408439
+export SOURCE_DATE_EPOCH=1694808447
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib

@@ -1,10 +1,23 @@
-2.78.1 - February 29, 2024
-==========================
+2.80.0 - March 14, 2024
+=======================
+
+- Mark plugin functions as exports on Windows (!250, Amyspark)
+- Updated translations
+
+2.80.rc - February 29, 2024
+===========================
 
 - GnuTLS: fix improper use of IP address in SNI extension (!247, MARTINSONS Frederic)
 - GnuTLS: major performance improvement: reduce unnecessary trust list creation (!249)
-- OpenSSL: fix bug when populating trust store (!244, Alessandro Bono)
 - OpenSSL: properly handle BIO_CTRL_EOF (!248)
+- Updated translations
+
+2.80.alpha - January 5, 2024
+============================
+
+- GnuTLS: Add warning when system has no trusted certificates (!243)
+- OpenSSL: Fix bug when populating trust store (!244, Alessandro Bono)
+- Fix license on dtls-connection.c test (!245, David King)
 - Updated translations
 
 2.78.0 - September 14, 2023
